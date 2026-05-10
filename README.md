@@ -22,9 +22,9 @@ Ainda no VPS, dentro da pasta .var/git/modalo.git/hooks/, crie um arquivo chamad
 #!/bin/bash
 echo "📦 Recebendo novo código na Modalo..."
 # Para onde o código real vai ser descompactado (sua pasta de produção)
-TARGET_DIR=".var/www/modalo-producao"
+TARGET_DIR="/home/dev.var/www/modalo-producao"
 # Descompacta o código que acabou de chegar
-git --work-tree=$TARGET_DIR --git-dir=.var/git/modalo.git checkout -f
+git --work-tree=$TARGET_DIR --git-dir=/home/dev/.var/git/modalo.git checkout -f
 # Vai até a pasta de produção e roda as coisas
 cd $TARGET_DIR
 echo "⚙️ Instalando pacotes com Bun..."
