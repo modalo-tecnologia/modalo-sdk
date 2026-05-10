@@ -1,14 +1,22 @@
 #!/bin/bash
 echo "📦 Recebendo novo código na Modalo..."
-# Para onde o código real vai ser descompactado (sua pasta de produção)
+
+# USE O CAMINHO COMPLETO AQUI (Exemplo baseado na sua .var)
 TARGET_DIR="/home/dev/.var/www/modalo-producao"
-# Descompacta o código que acabou de chegar
-git --work-tree=$TARGET_DIR --git-dir=/home/dev/.var/git/modalo.git checkout -f
-# Vai até a pasta de produção e roda as coisas
+GIT_DIR="/home/dev/.var/git/modalo.git"
+
+mkdir -p $TARGET_DIR
+
+# Comando de checkout com caminhos fixos
+git --work-tree=$TARGET_DIR --git-dir=$GIT_DIR checkout -f
+
 cd $TARGET_DIR
-echo "⚙️ Instalando pacotes com Bun..."
-bun install
-# Reinicia o Dashboard/Backend ou o serviço desejado
+
+# Se o 'bun' não for encontrado, use o caminho completo dele (ex: /home/dev/.bun/bin/bun)
+echo "⚙️ Instalando pacotes..."
+~/.bun/bin/bun install
+
 echo "🔄 Reiniciando serviços..."
-pm2 restart modalo-api || pm2 start backend.js --name "modalo-api"
+~/.bun/bin/pm2 restart modalo-api || ~/.bun/bin/pm2 start backend.js --name "modalo-api"
+
 echo "✅ Deploy concluído via Git!"
